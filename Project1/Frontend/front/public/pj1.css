@@ -1,0 +1,125 @@
+*{margin: 0;padding: 0;}
+
+body{
+
+    background: black;
+    overflow-x: hidden;
+}
+
+nav.navbar {
+    background: black;
+    height: 75px;
+    border-bottom: 1px solid #646161;
+    z-index: 10;
+}
+
+a.nav-link {
+    font-weight: 600;
+    text-transform: uppercase;
+    transition: 0.5s;
+}
+
+a.nav-link:hover{
+
+    color: #dc3545 !important;
+    transition: 0.5s;
+}
+
+.nav-item.red a{
+
+    color: #dc3545 !important;
+}
+
+li.nav-item {
+    padding: 0px 12px;
+}
+
+#my-nav{
+
+    background: black;
+}
+
+h2{
+
+    color: #fff;
+    text-transform: uppercase;
+}
+
+h2::before{
+
+    content: "✪";
+    color: #dc3545;
+    margin-right: 10px;
+}
+
+.card{
+    display: flex;
+}
+
+.card img{
+
+    max-width: 100%;
+    height: auto;
+}
+
+.card-text{
+
+    font-size: 14px;
+}
+
+.card-body a{
+    transition: 0.5s;
+}
+
+.card-body:hover a{
+
+    color: #e22027 !important;
+    transition: 0.5s;
+}
+
+label::before{
+
+    content: "⋆";
+    color: #e22027;
+    position: relative;
+    top: 0px;
+    font-size: 30px;
+}
+
+textarea{
+
+    padding: 10px;
+}
+
+select{
+
+    padding: 8px 6px;
+}
+
+.form-group{
+
+    margin: 0px;
+}
+
+h3{
+
+   position: relative;
+   left: 190px;
+   margin-bottom: 20px;
+}
+
+h3::before{
+
+    content: "✯";
+    color: #e22027;
+    margin-right: 5px;
+}
+
+span{
+
+    cursor: pointer;
+}
+
+.row.not img {
+    width: 100%;
+}

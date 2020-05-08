@@ -1,0 +1,11 @@
+@media screen and (max-width:1300px){
+
+    .card-body{
+
+        padding: 0px 0px !important;
+    }
+    a.btn.btn-warning{
+
+        margin-left: 0px !important;
+    }
+}
