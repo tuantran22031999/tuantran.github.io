@@ -41,7 +41,6 @@ const reducer = (state = data, action) => {
                 }
             });
             state = the;
-            console.log(state);
             alert('Update success');
         }   
         return state;                           

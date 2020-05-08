@@ -75,7 +75,7 @@ class Video extends Component {
           <p className="card-text text-white" style={{width: '84%'}}>{value.short_text}</p>
                 </div>
               </div>
-              <Link onClick = {(val) => this.getCheck(value)} to='/update' className="btn btn-warning mr-2 ml-3 text-white">Update</Link>
+              <Link onClick = {(val) => this.getCheck(value)} to='/update' className="btn btn-warning mr-2 text-white">Update</Link>
               <span onClick = {(val) => this.delData(value._id)} className="btn btn-danger mr-2">Delete</span>
               <a href="/add" className="btn btn-primary">Add</a>
             </div>

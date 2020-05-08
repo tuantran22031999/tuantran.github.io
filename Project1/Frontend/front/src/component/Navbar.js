@@ -60,7 +60,6 @@ class Navbar extends Component {
       });
     }
     else{
-      console.log(val);
     this.props.data.forEach((value) =>{
       if(value.title.slice(0,1).toLowerCase() === val.slice(0,1).toLowerCase()){
         this.setState({
@@ -73,13 +72,29 @@ class Navbar extends Component {
         });
       }
     })
-    console.log(this.state.arr);
     this.props.search(this.state.arr);
   }
   }
-   
-    render() {
 
+  reset = () =>{
+    if(this.state.arr === 8){
+      this.setState({
+
+        arr:[]
+      });
+    }
+  }
+
+  keyPress = (event) =>{
+    // console.log(event.key);
+    if(event.key === "Enter"){
+      console.log('click');
+      this.getSearch(this.state.key);
+    }
+  }
+   
+    render() { 
+      {this.reset()}
         return (
             <div>
                  {/* navbar */}
@@ -119,7 +134,7 @@ class Navbar extends Component {
             </li>
             <li className="nav-item">
               <div className="input-group mb-3">
-                <input onChange = {(event) => this.setKey(event)} type="text" className="form-control" placeholder="Search" />
+                <input onKeyPress = {(event) => this.keyPress(event)} onChange = {(event) => this.setKey(event)} type="text" className="form-control" placeholder="Search" />
                 <div className="input-group-append">
                  <Link onClick = {(event,val) => this.getSearch(this.state.key)} to = "/search" className="btn btn-danger">Search</Link>
                 </div>
