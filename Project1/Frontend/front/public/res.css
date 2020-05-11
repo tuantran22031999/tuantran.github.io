@@ -8,4 +8,14 @@
 
         margin-left: 0px !important;
     }
+
+    .page .row.my-5{
+
+        margin-left: 125px !important;
+    }
+
+    .page h3.ml-0.text-white{
+
+        margin: 0px -65px !important;
+    }
 }
