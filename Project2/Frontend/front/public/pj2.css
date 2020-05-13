@@ -1,0 +1,152 @@
+*{padding: 0;margin: 0;}
+
+.navbar{
+
+    background: black;
+}
+
+header img{
+
+    max-width: 100%;
+    height: auto;
+    animation: rotate 10s linear infinite;
+    opacity: 0.5;
+}
+
+@keyframes rotate{
+
+    0%{
+        transform: rotate(0deg);
+    }
+    100%{
+
+        transform: rotate(360deg);
+    }
+}
+
+
+.row.head .btn{
+
+    border:1px solid white !important;
+    color: white !important;
+    transition: 0.5s;
+}
+
+
+
+.row.head .btn:hover{
+
+    border:1px solid white !important;
+    background: white !important;
+    color: black !important;
+    transition: 0.5s;
+}
+
+.row.head h1{
+
+    font-family: 'Sawarabi Mincho', sans-serif;
+    letter-spacing: 0px;
+    word-spacing: 5px;
+}
+
+label{
+
+    color: white;
+}
+
+label::before{
+
+    content: "⁎";
+    color: red;
+    margin-right: 5px;
+}
+
+.sign-in h2{
+
+    font-family: 'Sawarabi Mincho', sans-serif;
+    color: #fff;
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 40px;
+}
+
+.log-in h2{
+
+    font-family: 'Sawarabi Mincho', sans-serif;
+    color: #fff;
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 40px;
+}
+
+.log-in label::before{
+
+    content: "⁎";
+    color: red;
+    margin-right: 5px;
+}
+
+.row.home {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.row.home a:hover{
+    text-decoration: none;
+    transition: 0.5s;
+}
+
+.row.home h4{
+    text-transform: capitalize !important;
+    transition: 0.5s;
+}
+
+.row.home h4:hover{
+
+    color: red !important;
+    transition: 0.5s;
+}
+
+.row.home img{
+
+    transition: 0.5s;
+}
+
+.row.home img:hover{
+
+    box-shadow: 0px 0px 10px white;
+    transition: 0.5s;
+}
+
+.row.profile a{
+
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+.pr:hover{
+
+    background: #8080804d;
+    transition: 0.5s;
+}
+
+.row.info h3{
+
+    color: white;
+    text-transform: capitalize;
+}
+
+.row.info h4{
+
+    color: white;
+    text-transform: capitalize;
+}
+
+li.nav-item.on a{
+    color: white !important;
+}
+
+.gray{
+
+    background: #8080804d;
+}
