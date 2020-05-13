@@ -83,6 +83,12 @@ class Login extends Component {
       }
     }
   }  
+
+  keycode = (e) =>{
+    if(e.key === 'Enter'){
+      this.checkLog(this.state);
+    }
+  }
    
     render() {
 
@@ -104,13 +110,13 @@ class Login extends Component {
               <form>
                 <div className="form-group">
                   <label htmlFor="user">User</label>
-                  <input onChange = {(e) => this.get(e)} id="user" className="form-control" type="text" name="user" />
+                  <input onKeyPress = {(e) => this/this.keycode(e)} onChange = {(e) => this.get(e)} id="user" className="form-control" type="text" name="user" />
                 </div>
                 <div className="form-group">
                   <label htmlFor="password">Password</label>
-                  <input onChange = {(e) => this.get(e)} id="password" className="form-control" type="password" name="password" />
+                  <input onKeyPress = {(e) => this/this.keycode(e)} onChange = {(e) => this.get(e)} id="password" className="form-control" type="password" name="password" />
                 </div>
-                <button onClick = {(val) => this.checkLog(this.state)} type="button" className="btn btn-block btn-danger mt-4">Log in</button>
+                <button onKeyPress = {(e) => this/this.keycode(e)} onClick = {(val) => this.checkLog(this.state)} type="button" className="btn btn-block btn-danger mt-4">Log in</button>
               </form>
               <div className="text-center mt-3"><a href="/">Back home</a></div>
             </div>

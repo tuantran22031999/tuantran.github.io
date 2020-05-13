@@ -10,8 +10,8 @@ const user = () =>(
   .then(res => res.data)
 )
 
-const add = (maid,name,birthday,age,hometown,favorite,maxim,picture) =>(
-  axios.post('/add',{maid,name,birthday,age,hometown,favorite,maxim,picture})
+const add = (maid,name,sex,birthday,age,hometown,favorite,maxim,picture) =>(
+  axios.post('/add',{maid,name,sex,birthday,age,hometown,favorite,maxim,picture})
   .then(res => res.data)
 )
 
@@ -28,6 +28,7 @@ class Profile extends Component {
         maid:"",
         user:"",
         name:"",
+        sex:"",
         birthday:"",
         age:"",
         hometown:"",
@@ -64,7 +65,7 @@ class Profile extends Component {
       if(data[i].user == val.user){
         val.maid = data[i]._id;
         fix(val.maid).then((res) => res);
-        add(val.maid,val.name,val.birthday,val.age,val.hometown,val.favorite,val.maxim,val.picture).then((res) => res);
+        add(val.maid,val.name,val.sex,val.birthday,val.age,val.hometown,val.favorite,val.maxim,val.picture).then((res) => res);
         this.setState({
           maid:data[i]._id,
           butt:true
@@ -85,6 +86,12 @@ class Profile extends Component {
     }
   }
   }
+
+  keycode = (e) =>{
+    if(e.key === 'Enter'){
+      this.set(this.state);
+    }
+  }
    
     render() {
       console.log(this.state);
@@ -96,42 +103,51 @@ class Profile extends Component {
                  {/* profile */}
       <div className="profile" style={{background: 'black'}}>
         <div className="container py-5">
-          <h1>create your profile</h1>
+          <h1 className="text-white text-center" style={{textTransform: 'uppercase'}}>create your profile</h1>
           <div className="row">
             <div className="col-md-6 mx-auto">
               <div className="form-group">
                 <label htmlFor="user">Your user</label>
-                <input onChange = {(e) => this.get(e)} id="user" className="form-control" type="text" name="user" />
+                <input onKeyPress = {(e) => this/this.keycode(e)} onChange = {(e) => this.get(e)} id="user" className="form-control" type="text" name="user" />
               </div>
               <div className="form-group">
                 <label htmlFor="name">Your name</label>
-                <input onChange = {(e) => this.get(e)} id="name" className="form-control" type="text" name="name" />
+                <input onKeyPress = {(e) => this/this.keycode(e)} onChange = {(e) => this.get(e)} id="name" className="form-control" type="text" name="name" />
+              </div>
+              <div className="form-group">
+                <label htmlFor="sex">Your Sex</label>
+                <select onKeyPress = {(e) => this/this.keycode(e)} className="form-control" onChange = {(e) => this.get(e)} name="sex" id="sex">
+                  <option>--choose--</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                  <option value="other">Other</option>
+                </select>
               </div>
               <div className="form-group">
                 <label htmlFor="birthday">Your birthday</label>
-                <input onChange = {(e) => this.get(e)} id="birthday" className="form-control" type="date" name="birthday" />
+                <input onKeyPress = {(e) => this/this.keycode(e)} onChange = {(e) => this.get(e)} id="birthday" className="form-control" type="date" name="birthday" />
               </div>
               <div className="form-group">
                 <label htmlFor="age">Your age</label>
-                <input onChange = {(e) => this.get(e)} id="age" className="form-control" type="text" name="age" />
+                <input onKeyPress = {(e) => this/this.keycode(e)} onChange = {(e) => this.get(e)} id="age" className="form-control" type="text" name="age" />
               </div>
               <div className="form-group">
                 <label htmlFor="hometown">Your hometown</label>
-                <input onChange = {(e) => this.get(e)} id="hometown" className="form-control" type="text" name="hometown" />
+                <input onKeyPress = {(e) => this/this.keycode(e)} onChange = {(e) => this.get(e)} id="hometown" className="form-control" type="text" name="hometown" />
               </div>
               <div className="form-group">
                 <label htmlFor="favorite">Your favorite</label>
-                <input onChange = {(e) => this.get(e)} id="favorite" className="form-control" type="text" name="favorite" />
+                <input onKeyPress = {(e) => this/this.keycode(e)} onChange = {(e) => this.get(e)} id="favorite" className="form-control" type="text" name="favorite" />
               </div>
               <div className="form-group">
                 <label htmlFor="maxim">Your favorite maxim</label>
-                <input onChange = {(e) => this.get(e)} id="maxim" className="form-control" type="text" name="maxim" />
+                <input onKeyPress = {(e) => this/this.keycode(e)} onChange = {(e) => this.get(e)} id="maxim" className="form-control" type="text" name="maxim" />
               </div>
               <div className="form-group">
                 <label htmlFor="picture">Your picture profile</label>
-                <input onChange = {(e) => this.get(e)} id="picture" className="form-control" type="text" name="picture" style={{display: 'block'}} />
+                <input onKeyPress = {(e) => this/this.keycode(e)} onChange = {(e) => this.get(e)} id="picture" className="form-control" type="text" name="picture" style={{display: 'block'}} />
               </div>
-              <button onClick = {(val) => this.set(this.state)} type="button" className="btn btn-block btn-danger mt-4">Add Profile</button>
+              <button onKeyPress = {(e) => this/this.keycode(e)} onClick = {(val) => this.set(this.state)} type="button" className="btn btn-block btn-danger mt-4">Add Profile</button>
               <div className="text-center mt-3"><a href="/">Back home</a></div>
             </div>
           </div>

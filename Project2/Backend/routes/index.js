@@ -108,6 +108,7 @@ router.post('/add', function(req, res, next) {
   var user = {
     maid:req.body.maid,
     name:req.body.name,
+    sex:req.body.sex,
     birthday:req.body.birthday,
     age:req.body.age,
     hometown:req.body.hometown,
@@ -145,6 +146,32 @@ router.post('/fix', function(req, res, next) {
     // Update document where a is 2, set b equal to 1
     collection.updateOne({ _id : id }
       , { $set: { on : true } }, function(err, result) {
+      assert.equal(err, null);
+      assert.equal(1, result.result.n);
+      console.log("Updated the document with the field a equal to 2");
+      callback(result);
+    });
+  }
+  // Use connect method to connect to the server
+MongoClient.connect(url, function(err, client) {
+  assert.equal(null, err);
+  console.log("Connected successfully to server");
+  const db = client.db(dbName);
+    updateDocument(db, function() {
+      client.close();
+    });
+});
+});
+
+router.post('/set_male', function(req, res, next) {
+
+  var id = change(req.body.id);  
+  const updateDocument = function(db, callback) {
+    // Get the documents collection
+    const collection = db.collection('profile1');
+    // Update document where a is 2, set b equal to 1
+    collection.updateOne({ _id : id }
+      , { $set: { picture : "https://banner2.cleanpng.com/20180725/ks/kisspng-logistics-indonesia-dhl-express-courier-guava-juic-5b58961790b4c5.5526889315325322475927.jpg" } }, function(err, result) {
       assert.equal(err, null);
       assert.equal(1, result.result.n);
       console.log("Updated the document with the field a equal to 2");

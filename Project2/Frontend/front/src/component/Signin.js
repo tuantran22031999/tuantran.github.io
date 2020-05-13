@@ -41,6 +41,12 @@ class Signin extends Component {
       }
     }
   }
+
+  keycode = (e) =>{
+    if(e.key === 'Enter'){
+      this.setSign(this.state);
+    }
+  }
    
     render() {
       console.log(this.props.on);
@@ -55,17 +61,17 @@ class Signin extends Component {
               <form>
                 <div className="form-group">
                   <label htmlFor="user">User</label>
-                  <input onChange = {(e) => this.getSign(e)} id="user" className="form-control" type="text" name="user" />
+                  <input onKeyPress = {(e) => this/this.keycode(e)} onChange = {(e) => this.getSign(e)} id="user" className="form-control" type="text" name="user" />
                 </div>
                 <div className="form-group">
                   <label htmlFor="password">Password</label>
-                  <input onChange = {(e) => this.getSign(e)} id="password" className="form-control" type="password" name="password" />
+                  <input onKeyPress = {(e) => this/this.keycode(e)} onChange = {(e) => this.getSign(e)} id="password" className="form-control" type="password" name="password" />
                 </div>
                 <div className="form-group">
                   <label htmlFor="confirm">Confirm</label>
-                  <input onChange = {(e) => this.getSign(e)} id="confirm" className="form-control" type="password" name="confirm" />
+                  <input onKeyPress = {(e) => this/this.keycode(e)} onChange = {(e) => this.getSign(e)} id="confirm" className="form-control" type="password" name="confirm" />
                 </div>
-                <button onClick = { (val) => this.setSign(this.state) } type="button" className="btn btn-block btn-danger mt-4">Sign in</button>
+                <button onKeyPress = {(e) => this/this.keycode(e)} onClick = { (val) => this.setSign(this.state) } type="button" className="btn btn-block btn-danger mt-4">Sign in</button>
               </form>
               <div className="text-center mt-3"><a href="/">Back home</a></div>
             </div>

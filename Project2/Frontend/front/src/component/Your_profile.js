@@ -7,6 +7,11 @@ const profile = () =>(
   .then(res => res.data)
 )
 
+const set_male = (id) =>(
+  axios.post('/set_male',{id})
+  .then(res => res.data)
+)
+
 class Your_profile extends Component {
 
   constructor(props) {
@@ -30,11 +35,15 @@ class Your_profile extends Component {
     if(this.state.data !== []){
       return this.state.data.map((value,key) => {
         if(value.maid === this.props.match.params.id){
+          if(value.picture === ""){
+            set_male(value._id).then((res) => res);
+           }
           return(
             <div className="row info" key={key}>
             <div className="col-xs-12 mt-5 text-center mx-auto">
               <img src={value.picture} alt="anh" height="350px" width="350px" className="rounded-circle" />
           <h3 className="mt-4">{value.name}</h3>
+          <h4>Sex : {value.sex}</h4>
           <h4>Birthday : {value.birthday}</h4>
           <h4>Age : {value.age}</h4>
           <h4>Home town : {value.hometown}</h4>

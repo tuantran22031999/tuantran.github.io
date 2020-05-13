@@ -5,6 +5,10 @@ const profile = () =>(
   .then(res => res.data)
 )
 
+const set_male = (id) =>(
+  axios.post('/set_male',{id})
+  .then(res => res.data)
+)
 
 class Home extends Component {
 
@@ -29,7 +33,9 @@ class Home extends Component {
     if(this.state.data !== []){
      return this.state.data.map((value,key) =>{
        if(value.maid !== this.props.match.params.id){
-         console.log(value._id);
+         if(value.picture === ""){
+          set_male(value._id).then((res) => res);
+         }
        return(
       <div className="col-md-4 col-sm-12 mt-5" key={key}>
       <a href={`/friend.${value._id}`}><img src={value.picture} alt="anh" className="rounded-circle ml-5" width="250px" height="250px" /></a>
