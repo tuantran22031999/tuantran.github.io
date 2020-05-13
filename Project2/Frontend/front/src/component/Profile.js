@@ -10,8 +10,10 @@ const user = () =>(
   .then(res => res.data)
 )
 
-const add = (maid,name,sex,birthday,age,hometown,favorite,maxim,picture) =>(
-  axios.post('/add',{maid,name,sex,birthday,age,hometown,favorite,maxim,picture})
+const add = (maid,name,sex,birthday,age,hometown,favorite,maxim,picture,facebook,instagram,
+twitter) =>(
+  axios.post('/add',{maid,name,sex,birthday,age,hometown,favorite,maxim,picture,facebook,instagram,
+    twitter})
   .then(res => res.data)
 )
 
@@ -35,6 +37,9 @@ class Profile extends Component {
         favorite:"",
         maxim:"",
         picture:"",
+        facebook:"",
+        instagram:"",
+        twitter:"",
         arr:[],
         butt:false
     };
@@ -65,7 +70,7 @@ class Profile extends Component {
       if(data[i].user == val.user){
         val.maid = data[i]._id;
         fix(val.maid).then((res) => res);
-        add(val.maid,val.name,val.sex,val.birthday,val.age,val.hometown,val.favorite,val.maxim,val.picture).then((res) => res);
+        add(val.maid,val.name,val.sex,val.birthday,val.age,val.hometown,val.favorite,val.maxim,val.picture,val.facebook,val.instagram,val.twitter).then((res) => res);
         this.setState({
           maid:data[i]._id,
           butt:true
@@ -94,7 +99,6 @@ class Profile extends Component {
   }
    
     render() {
-      console.log(this.state);
       if(this.state.butt === true){
         return <Redirect to={`/home.${this.state.maid}`}></Redirect>
       }
@@ -118,9 +122,9 @@ class Profile extends Component {
                 <label htmlFor="sex">Your Sex</label>
                 <select onKeyPress = {(e) => this/this.keycode(e)} className="form-control" onChange = {(e) => this.get(e)} name="sex" id="sex">
                   <option>--choose--</option>
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                  <option value="other">Other</option>
+                  <option value="0">Male</option>
+                  <option value="1">Female</option>
+                  <option value="2">Other</option>
                 </select>
               </div>
               <div className="form-group">
@@ -146,6 +150,18 @@ class Profile extends Component {
               <div className="form-group">
                 <label htmlFor="picture">Your picture profile</label>
                 <input onKeyPress = {(e) => this/this.keycode(e)} onChange = {(e) => this.get(e)} id="picture" className="form-control" type="text" name="picture" style={{display: 'block'}} />
+              </div>
+              <div className="form-group">
+                <label htmlFor="facebook">Your facebook</label>
+                <input onKeyPress = {(e) => this/this.keycode(e)} onChange = {(e) => this.get(e)} id="facebook" className="form-control" type="text" name="facebook" style={{display: 'block'}} />
+              </div>
+              <div className="form-group">
+                <label htmlFor="instagram">Your instagram</label>
+                <input onKeyPress = {(e) => this/this.keycode(e)} onChange = {(e) => this.get(e)} id="instagram" className="form-control" type="text" name="instagram" style={{display: 'block'}} />
+              </div>
+              <div className="form-group">
+                <label htmlFor="twitter">Your twitter</label>
+                <input onKeyPress = {(e) => this/this.keycode(e)} onChange = {(e) => this.get(e)} id="twitter" className="form-control" type="text" name="twitter" style={{display: 'block'}} />
               </div>
               <button onKeyPress = {(e) => this/this.keycode(e)} onClick = {(val) => this.set(this.state)} type="button" className="btn btn-block btn-danger mt-4">Add Profile</button>
               <div className="text-center mt-3"><a href="/">Back home</a></div>

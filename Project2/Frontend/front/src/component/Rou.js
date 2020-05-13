@@ -12,6 +12,7 @@ import Home from './Home';
 import Home_1 from './Home_1';
 import Footer from './Footer';
 import Friend from './Friend';
+import Update from './Update';
 class Rou extends Component {
     render() {
         return (
@@ -27,6 +28,7 @@ class Rou extends Component {
             <Route path="/your_profile.:id" exact component={Your_profile}></Route>
             <Route path="/friend.:id_friend" exact component={Home_1}></Route>
             <Route path="/friend.:id_friend" exact component={Friend}></Route>
+            <Route path="/update" exact component={Update}></Route>
             </div>
         )
     }

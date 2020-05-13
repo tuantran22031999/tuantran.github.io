@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import {
   BrowserRouter as Router,
-  Link
+  Link,
+  Prompt
 } from "react-router-dom";
 import axios from 'axios';
 
@@ -37,6 +38,7 @@ class Home_1 extends Component {
     var id_host = JSON.parse(localStorage.getItem('get_id'));
     if(this.state.data !== []){
       return this.state.data.map((value,key) => {
+        console.log(value.maid);
         if(value.maid === this.props.match.params.id){
          return(
            <div>
@@ -47,6 +49,9 @@ class Home_1 extends Component {
         <li className="nav-item">
           <Link className="nav-link" to={`/your_profile.${value.maid}`}>Your Profile</Link>
         </li>
+        <li className="nav-item">
+          <a className="nav-link" href={`/`}>Back</a>
+         </li>
         </ul>
         </div>
          )
@@ -61,6 +66,9 @@ class Home_1 extends Component {
          <li className="nav-item">
            <Link className="nav-link" to={`/your_profile.${id_host}`}>Your Profile</Link>
          </li>
+         <li className="nav-item">
+           <a className="nav-link" href={`/`}>Back</a>
+         </li>
          </ul>
          </div>
           )
@@ -71,6 +79,7 @@ class Home_1 extends Component {
 
 
     render() {
+      console.log(this.props.match.params.id);
         return (
             <div>
                  {/* home_1 */}

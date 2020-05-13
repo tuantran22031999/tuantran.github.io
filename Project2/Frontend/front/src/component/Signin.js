@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import * as action from '../action/Index';
 import { connect } from 'react-redux';
-import Profile from './Profile';
 class Signin extends Component {
 
 
@@ -29,6 +28,10 @@ class Signin extends Component {
     }
     else if(val.password !== val.confirm){
       alert('confirm false');
+      return false;
+    }
+    else if(val.password === val.user){
+      alert('password # user');
       return false;
     }
     else{

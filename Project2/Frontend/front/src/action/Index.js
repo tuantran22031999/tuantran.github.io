@@ -8,3 +8,12 @@ export const user = (val) =>{
         val
     }
 }
+
+export const check = (val) =>{
+
+    return {
+
+        type:type.CHECK,
+        val
+    }
+}

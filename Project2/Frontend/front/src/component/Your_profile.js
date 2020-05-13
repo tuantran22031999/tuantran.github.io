@@ -1,7 +1,12 @@
-import React, { Component } from 'react'
-import Img from './Img';
+import React, { Component } from 'react';
+import {
+  BrowserRouter as Router,
+  Link
+} from "react-router-dom";
 import Footer from './Footer';
 import axios from 'axios';
+import { connect } from 'react-redux';
+import * as action from '../action/Index'; 
 const profile = () =>(
   axios.get('/profile')
   .then(res => res.data)
@@ -31,6 +36,10 @@ class Your_profile extends Component {
     }
   }
 
+  check = (val) =>{
+    this.props.check(val);
+  }
+
   set_Info = () =>{
     if(this.state.data !== []){
       return this.state.data.map((value,key) => {
@@ -49,8 +58,12 @@ class Your_profile extends Component {
           <h4>Home town : {value.hometown}</h4>
           <h4>favorite : {value.favorite}</h4>
           <h4>maxim : {value.maxim}</h4>
-              <form>
-                <button type="button" className="btn btn-warning text-white">Update</button>
+          <h4 style={{display: 'inline',position:'relative',top:'5px'}}>contact with me : </h4>
+          <span className="mx-2"><a href={value.facebook}><img src="https://image.flaticon.com/icons/svg/1384/1384053.svg" alt="anh" height="30" width="30"></img></a></span>
+          <span className="mx-2"><a href={value.instagram}><img src="https://image.flaticon.com/icons/svg/2111/2111463.svg" alt="anh" height="30" width="30"></img></a></span>
+          <span className="mx-2"><a href={value.twitter}><img src="https://image.flaticon.com/icons/svg/733/733579.svg" alt="anh" height="30" width="30"></img></a></span>
+              <form className="mt-3">
+                <Link to="/update" onClick = {(val) => this.check(value)} type="button" className="btn btn-warning text-white">Update</Link>
               </form>
             </div>
           </div>
@@ -60,8 +73,6 @@ class Your_profile extends Component {
     }
   }
     render() {
-
-      console.log(this.props.match.params);
         return (
             <div>
         <div className="your-profile" style={{background: 'black'}}>
@@ -79,4 +90,17 @@ class Your_profile extends Component {
     }
 }
 
-export default Your_profile;
+const mapStateToProps = (state) => {
+  return {
+  }
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    check: (val) => {
+      dispatch(action.check(val))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Your_profile);

@@ -114,8 +114,32 @@ router.post('/add', function(req, res, next) {
     hometown:req.body.hometown,
     favorite:req.body.favorite,
     maxim:req.body.maxim,
-    picture:req.body.picture
+    picture:req.body.picture,
+    facebook:req.body.facebook,
+    instagram:req.body.instagram,
+    twitter:req.body.twitter,
   }
+
+  if(user.sex === "0"){
+    user.sex = "male";
+  }
+  else if(user.sex === "1"){
+    user.sex = "female";
+  }
+  else if(user.sex === "2"){
+    user.sex = "other";
+  }
+
+  if(user.facebook === ""){
+    user.facebook = "#";
+  }
+  else if(user.instagram === ""){
+    user.instagram = "#";
+  }
+  else if(user.twitter === ""){
+    user.twitter = "#";
+  }
+
   const insertDocuments = function(db, callback) {
     // Get the documents collection
     const collection = db.collection('profile1');
@@ -187,6 +211,66 @@ MongoClient.connect(url, function(err, client) {
       client.close();
     });
 });
+});
+
+router.post('/up', function(req, res, next) {
+
+  var profile = {
+    maid:req.body.maid,
+    name:req.body.name,
+    sex:req.body.sex,
+    birthday:req.body.birthday,
+    age:req.body.age,
+    hometown:req.body.hometown,
+    favorite:req.body.favorite,
+    maxim:req.body.maxim,
+    picture:req.body.picture,
+    facebook:req.body.facebook,
+    instagram:req.body.instagram,
+    twitter:req.body.twitter,
+  }
+
+  if(profile.sex === "0"){
+    profile.sex = "male";
+  }
+  else if(profile.sex === "1"){
+    profile.sex = "female";
+  }
+  else if(profile.sex === "2"){
+    profile.sex = "other";
+  }
+
+  if(profile.facebook === ""){
+    profile.facebook = "#";
+  }
+  else if(profile.instagram === ""){
+    profile.instagram = "#";
+  }
+  else if(profile.twitter === ""){
+    profile.twitter = "#";
+  }
+
+  const updateDocument = function(db, callback) {
+    // Get the documents collection
+    const collection = db.collection('profile1');
+    // Update document where a is 2, set b equal to 1
+    collection.updateOne({ maid : profile.maid }
+      , { $set: {name:profile.name,sex:profile.sex,birthday:profile.birthday,age:profile.age,hometown:profile.hometown,favorite:profile.favorite,maxim:profile.maxim,picture:profile.picture,facebook:profile.facebook,instagram:profile.instagram,twitter:profile.twitter} }, function(err, result) {
+      assert.equal(err, null);
+      assert.equal(1, result.result.n);
+      console.log("Updated the document with the field a equal to 2");
+      callback(result);
+    });
+  }
+
+  MongoClient.connect(url, function(err, client) {
+    assert.equal(null, err);
+    console.log("Connected successfully to server");
+    const db = client.db(dbName);
+      updateDocument(db, function() {
+        client.close();
+      });
+  });
 });
 
 module.exports = router;

@@ -40,6 +40,10 @@ class Friend extends Component {
           <h4>Home town : {value.hometown}</h4>
           <h4>favorite : {value.favorite}</h4>
           <h4>maxim : {value.maxim}</h4>
+          <h4 style={{display: 'inline',position:'relative',top:'5px'}}>contact with me : </h4>
+          <span className="mx-2"><a href={value.facebook}><img src="https://image.flaticon.com/icons/svg/1384/1384053.svg" alt="anh" height="30" width="30"></img></a></span>
+          <span className="mx-2"><a href={value.instagram}><img src="https://image.flaticon.com/icons/svg/2111/2111463.svg" alt="anh" height="30" width="30"></img></a></span>
+          <span className="mx-2"><a href={value.twitter}><img src="https://image.flaticon.com/icons/svg/733/733579.svg" alt="anh" height="30" width="30"></img></a></span>
             </div>
           </div>
           )
