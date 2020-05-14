@@ -49,6 +49,12 @@ class Story extends Component {
         return false;
     }
     }
+
+    keycode = (e) =>{
+        if(e.key === 'Enter'){
+          this.set(this.state);
+        }
+      }
      
     render() {
         if(this.state.but === true){
@@ -62,17 +68,17 @@ class Story extends Component {
                       <div className="col-md-5 col-sm-12 mx-auto">
                         <div className="form-group">
                           <label htmlFor="title">Title</label>
-                          <input onChange = {(e) => this.get(e)} id="title" className="form-control" type="text" name="title" />
+                          <input onKeyPress = {(e) => this/this.keycode(e)} onChange = {(e) => this.get(e)} id="title" className="form-control" type="text" name="title" />
                         </div>
                         <div className="form-group">
                           <label htmlFor="img">Picture</label>
-                          <input  onChange = {(e) => this.get(e)} id="img" className="form-control" type="text" name="img" />
+                          <input onKeyPress = {(e) => this/this.keycode(e)} onChange = {(e) => this.get(e)} id="img" className="form-control" type="text" name="img" />
                         </div>
                         <div className="form-group">
                           <label htmlFor="text">Text</label>
-                          <textarea  onChange = {(e) => this.get(e)} style={{display:'block'}} name="text" id="text" cols={71} rows={12} style={{padding:"10px"}}></textarea>
+                          <textarea onKeyPress = {(e) => this/this.keycode(e)} onChange = {(e) => this.get(e)} style={{display:'block'}} name="text" id="text" cols={71} rows={12} style={{padding:"10px"}}></textarea>
                         </div>
-                        <button onClick = {(val) => this.set(this.state)} type="button" className="btn btn-block btn-danger mt-4">Add Story</button>
+                        <button onKeyPress = {(e) => this/this.keycode(e)} onClick = {(val) => this.set(this.state)} type="button" className="btn btn-block btn-danger mt-4">Add Story</button>
                       </div>
                    </div>
                   </div>

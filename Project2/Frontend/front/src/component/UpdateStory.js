@@ -1,78 +1,71 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
+import { connect } from "react-redux";
 
-const upStory = (story) =>(
-    axios.post('/upStory',{story})
+const up = (fix) =>{
+    axios.post('/update_story',{fix})
     .then(res => res.data)
-)
+}
 
 class UpdateStory extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            maid:this.props.match.params.id,
-            title:"",
-            img:"",
-            text:"",
-            day:"",
-            month:"",
-            year:"",
+            id:this.props.data._id,
+            maid:this.props.data.maid,
+            title:this.props.data.title,
+            img:this.props.data.img,
+            text:this.props.data.text,
             but:false
         };
     }
 
     get = (e) =>{
-        var date  = new Date;
-        var day = date.getDate();
-        var month = date.getMonth()+1;
-        var year = date.getFullYear();
         this.setState({
-            [e.target.name]:e.target.value,
-            day:day,
-            month:month,
-            year:year
+            [e.target.name]:e.target.value
         });
     }
 
     set = (val) =>{
-        if(this.state.img !== "" || this.state.text !== ""){
-        upStory(val).then((res) => res);
+        up(val);
         this.setState({
             but:true
         });
-        alert('Add story success');
-    }
-    else{
-        alert(' Img or Text not empty');
-        return false;
-    }
-    }
+    } 
+
+    keycode = (e) =>{
+        if(e.key === 'Enter'){
+          this.set(this.state);
+        }
+      }
      
     render() {
+
         if(this.state.but === true){
-            return <Redirect to={`/your_profile.${this.props.match.params.id}`}></Redirect>
+            alert('Update success');
+            return <Redirect to={`/your_profile.${this.state.maid}`}></Redirect>
         }
         return (
             <div>
                 <div className="container-fluid py-5" style={{background: 'black',height:'720px'}}>
-                <h1 className="text-center text-white">YOUR STORY</h1>
+                <h1 className="text-center text-white">UPDATE YOUR STORY</h1>
                     <div className="row">
                       <div className="col-md-5 col-sm-12 mx-auto">
                         <div className="form-group">
                           <label htmlFor="title">Title</label>
-                          <input onChange = {(e) => this.get(e)} id="title" className="form-control" type="text" name="title" />
+                          <input onKeyPress = {(e) => this/this.keycode(e)} defaultValue={this.props.data.title} onChange = {(e) => this.get(e)} id="title" className="form-control" type="text" name="title" />
                         </div>
                         <div className="form-group">
                           <label htmlFor="img">Picture</label>
-                          <input  onChange = {(e) => this.get(e)} id="img" className="form-control" type="text" name="img" />
+                          <input onKeyPress = {(e) => this/this.keycode(e)} defaultValue={this.props.data.img} onChange = {(e) => this.get(e)} id="img" className="form-control" type="text" name="img" />
                         </div>
                         <div className="form-group">
                           <label htmlFor="text">Text</label>
-                          <textarea  onChange = {(e) => this.get(e)} style={{display:'block'}} name="text" id="text" cols={71} rows={12} style={{padding:"10px"}}></textarea>
+                          <textarea onKeyPress = {(e) => this/this.keycode(e)} defaultValue={this.props.data.text} onChange = {(e) => this.get(e)} style={{display:'block'}} name="text" id="text" cols={71} rows={12} style={{padding:"10px"}}></textarea>
                         </div>
-                        <button onClick = {(val) => this.set(this.state)} type="button" className="btn btn-block btn-danger mt-4">Add Story</button>
+                        <button onKeyPress = {(e) => this/this.keycode(e)} onClick = {(val) => this.set(this.state)} type="button" className="btn btn-block btn-danger mt-4">Update Story</button>
                       </div>
                    </div>
                   </div>
@@ -81,4 +74,10 @@ class UpdateStory extends Component {
     }
 }
 
-export default UpdateStory;
+const mapStateToProps = (state) => {
+    return {
+        data: state.check1
+    }
+}
+
+export default connect(mapStateToProps)(UpdateStory)

@@ -17,3 +17,12 @@ export const check = (val) =>{
         val
     }
 }
+
+export const check1 = (val) =>{
+
+    return {
+
+        type:type.CHECK1,
+        val
+    }
+}

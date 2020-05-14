@@ -262,6 +262,32 @@ MongoClient.connect(url, function(err, client) {
 });
 });
 
+router.post('/update_story', function(req, res, next) {
+
+  var data = req.body.fix; 
+  const updateDocument = function(db, callback) {
+    // Get the documents collection
+    const collection = db.collection('story');
+    // Update document where a is 2, set b equal to 1
+    collection.updateOne({ _id : change(data.id) }
+      , { $set: { title:data.title,img:data.img,text:data.text} }, function(err, result) {
+      assert.equal(err, null);
+      assert.equal(1, result.result.n);
+      console.log("Updated the document with the field a equal to 2");
+      callback(result);
+    });
+  }
+  // Use connect method to connect to the server
+MongoClient.connect(url, function(err, client) {
+  assert.equal(null, err);
+  console.log("Connected successfully to server");
+  const db = client.db(dbName);
+    updateDocument(db, function() {
+      client.close();
+    });
+});
+});
+
 router.post('/up', function(req, res, next) {
 
   var profile = {

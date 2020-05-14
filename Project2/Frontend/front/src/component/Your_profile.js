@@ -57,6 +57,10 @@ class Your_profile extends Component {
     this.props.check(val);
   }
 
+  check1 = (val) =>{
+    this.props.check1(val);
+  }
+
   set_Info = () =>{
     if(this.state.data !== []){
       return this.state.data.map((value,key) => {
@@ -115,7 +119,7 @@ class Your_profile extends Component {
               </div>
               <form>
               <button onClick = {(val) => this.del(value._id)} type="submit" class="btn btn-danger mr-3 mb-5">Delete</button>
-              <a type="button" class="btn btn-warning mb-5 text-white">Update</a>
+              <Link to="/update_story" onClick = {(val) => this.check1(value)} class="btn btn-warning mb-5 text-white">Update</Link>
               </form>
               <hr></hr>
             </div>
@@ -149,12 +153,16 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch) => {
   return {
     check: (val) => {
       dispatch(action.check(val))
+    },
+    check1: (val) => {
+      dispatch(action.check1(val))
     }
   }
 }
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(Your_profile);
