@@ -1,9 +1,13 @@
 import React, { Component } from 'react'
-import Img from './Img';
 import Footer from './Footer';
 import axios from 'axios';
 const profile = () =>(
   axios.get('/profile')
+  .then(res => res.data)
+)
+
+const story = () =>(
+  axios.get('/story')
   .then(res => res.data)
 )
 
@@ -12,7 +16,9 @@ class Friend extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data:[]
+      data:[],
+      story:[],
+      maid:''
     };
   }
    
@@ -24,12 +30,22 @@ class Friend extends Component {
       });
      });
     }
+    if(this.state.story = []){
+      story().then((res) =>{
+       this.setState({
+         story:res
+       });
+      });
+     }
   }
+
+  get_id = '';
 
   set_Info = () =>{
     if(this.state.data !== []){
       return this.state.data.map((value,key) => {
         if(value._id === this.props.match.params.id_friend){
+          this.get_id = value.maid;
           return(
             <div className="row info" key={key}>
             <div className="col-xs-12 mt-5 text-center mx-auto">
@@ -51,9 +67,32 @@ class Friend extends Component {
       })
     }
   }
+
+  setStory = () =>{
+    if(this.state.story !== []){
+      return this.state.story.map((value,key) =>{
+        if(value.maid === this.get_id){
+          return(
+            <div className="container mt-5" key={key}>
+            <div className="row story">
+              <div className="col-xs-12 mx-auto">
+          <h5>{value.title}</h5>
+          <p>{`${value.day}/${value.month}/${value.year}`}</p>
+                <img src={value.img} alt="anh" height="487" width="730" />
+          <p className="mt-3">{value.text}</p>
+              </div>
+              <hr></hr>
+            </div>
+          </div>
+          )
+        }
+      })
+    }
+  }
     render() {
 
-      console.log(this.props.match.params);
+      console.log(this.state.story);
+      console.log(this.props.match.params.id_friend);
         return (
             <div>
         <div className="your-profile" style={{background: 'black'}}>
@@ -63,6 +102,7 @@ class Friend extends Component {
             <div className="col-md-6 text-center pr"><a href="#" className="text-white"><h4 className="pt-1">album</h4></a></div>
           </div> */}
           {this.set_Info()}
+          {this.setStory()}
         </div>
       </div>
       <Footer></Footer>

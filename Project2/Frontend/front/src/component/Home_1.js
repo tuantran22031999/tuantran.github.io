@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import {
   BrowserRouter as Router,
-  Link,
-  Prompt
+  Link
 } from "react-router-dom";
 import axios from 'axios';
 
@@ -38,7 +37,6 @@ class Home_1 extends Component {
     var id_host = JSON.parse(localStorage.getItem('get_id'));
     if(this.state.data !== []){
       return this.state.data.map((value,key) => {
-        console.log(value.maid);
         if(value.maid === this.props.match.params.id){
          return(
            <div>
@@ -79,7 +77,6 @@ class Home_1 extends Component {
 
 
     render() {
-      console.log(this.props.match.params.id);
         return (
             <div>
                  {/* home_1 */}

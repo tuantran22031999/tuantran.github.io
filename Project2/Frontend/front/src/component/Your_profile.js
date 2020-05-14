@@ -17,12 +17,22 @@ const set_male = (id) =>(
   .then(res => res.data)
 )
 
+const story = () =>(
+  axios.get('/story')
+  .then(res => res.data)
+)
+
+const delStory = (id) =>{
+  axios.post('/delStory',{id})
+  .then(res => res.data)
+}
 class Your_profile extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      data:[]
+      data:[],
+      story:[]
     };
   }
    
@@ -34,6 +44,13 @@ class Your_profile extends Component {
       });
      });
     }
+    if(this.state.story = []){
+      story().then((res) =>{
+       this.setState({
+         story:res
+       });
+      });
+     }
   }
 
   check = (val) =>{
@@ -66,6 +83,42 @@ class Your_profile extends Component {
                 <Link to="/update" onClick = {(val) => this.check(value)} type="button" className="btn btn-warning text-white">Update</Link>
               </form>
             </div>
+            <div className="container">
+                <div className="row">
+                    <div className="col-xs-12 mx-auto my-3 text-white"><a href={`/story.${this.props.match.params.id}`} class="btn btn-primary">Add Story</a></div>
+                </div>
+            </div>
+          </div>
+          )
+        }
+      })
+    }
+  }
+
+  del = (val) =>{
+    alert('Delete success');
+    delStory(val).then((res) => res);
+  }
+
+  setStory = () =>{
+    if(this.state.story !== []){
+      return this.state.story.map((value,key) =>{
+        if(value.maid === this.props.match.params.id){
+          return(
+            <div className="container mt-5" key={key}>
+            <div className="row story">
+              <div className="col-xs-12 mx-auto">
+          <h5>{value.title}</h5>
+          <p>{`${value.day}/${value.month}/${value.year}`}</p>
+                <img src={value.img} alt="anh" height="487" width="730" />
+          <p className="mt-3">{value.text}</p>
+              </div>
+              <form>
+              <button onClick = {(val) => this.del(value._id)} type="submit" class="btn btn-danger mr-3 mb-5">Delete</button>
+              <a type="button" class="btn btn-warning mb-5 text-white">Update</a>
+              </form>
+              <hr></hr>
+            </div>
           </div>
           )
         }
@@ -82,6 +135,7 @@ class Your_profile extends Component {
             <div className="col-md-6 text-center pr"><a href="#" className="text-white"><h4 className="pt-1">album</h4></a></div>
           </div> */}
           {this.set_Info()}
+          {this.setStory()}
         </div>
       </div>
       <Footer></Footer>

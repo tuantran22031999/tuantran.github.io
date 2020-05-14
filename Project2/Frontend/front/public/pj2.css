@@ -150,3 +150,23 @@ li.nav-item.on a{
 
     background: #8080804d;
 }
+
+
+.row.story {
+    width: 69%;
+    margin: auto;
+    border-bottom: 1px solid white;
+}
+
+.row.story p {
+    color: #fff;
+}
+
+.row.story img{
+    max-width: 100%;
+    height: auto;
+}
+
+.row.story h5 {
+    color: #fff;
+}

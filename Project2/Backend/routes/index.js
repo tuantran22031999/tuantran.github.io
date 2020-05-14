@@ -50,6 +50,32 @@ MongoClient.connect(url, function(err, client) {
 });
 });
 
+router.get('/story', function(req, res, next) {
+
+  const findDocuments = function(db, callback) {
+    // Get the documents collection
+    const collection = db.collection('story');
+    // Find some documents
+    collection.find({}).toArray(function(err, docs) {
+      assert.equal(err, null);
+      console.log("Found the following records");
+      console.log(docs)
+      callback(docs);
+    });
+  }
+
+  // Use connect method to connect to the server
+MongoClient.connect(url, function(err, client) {
+  assert.equal(null, err);
+  console.log("Connected correctly to server");
+  const db = client.db(dbName);
+    findDocuments(db, function(data) {
+      res.send(data);
+      client.close();
+    });
+});
+});
+
 router.get('/profile', function(req, res, next) {
 
   const findDocuments = function(db, callback) {
@@ -88,6 +114,29 @@ router.post('/insert', function(req, res, next) {
     const collection = db.collection('user1');
     // Insert some documents
     collection.insert(user, function(err, result) {
+      assert.equal(err, null);
+      console.log("Inserted 3 documents into the collection");
+      callback(result);
+    });
+  }
+  // Use connect method to connect to the server
+MongoClient.connect(url, function(err, client) {
+  assert.equal(null, err);
+  console.log("Connected successfully to server");
+  const db = client.db(dbName);
+  insertDocuments(db, function() {
+    client.close();
+  });
+});
+});
+
+router.post('/upStory', function(req, res, next) {
+  var story = req.body.story;
+  const insertDocuments = function(db, callback) {
+    // Get the documents collection
+    const collection = db.collection('story');
+    // Insert some documents
+    collection.insert(story, function(err, result) {
       assert.equal(err, null);
       console.log("Inserted 3 documents into the collection");
       callback(result);
@@ -271,6 +320,33 @@ router.post('/up', function(req, res, next) {
         client.close();
       });
   });
+});
+
+router.post('/delStory', function(req, res, next) {
+
+  var ids = change(req.body.id);
+
+  const removeDocument = function(db, callback) {
+    // Get the documents collection
+    const collection = db.collection('story');
+    // Delete document where a is 3
+    collection.deleteOne({ _id : ids }, function(err, result) {
+      assert.equal(err, null);
+      assert.equal(1, result.result.n);
+      console.log("Removed the document with the field a equal to 3");
+      callback(result);
+    });
+  }
+
+  // Use connect method to connect to the server
+MongoClient.connect(url, function(err, client) {
+  assert.equal(null, err);
+  console.log("Connected successfully to server");
+      const db = client.db(dbName);
+      removeDocument(db, function() {
+        client.close();
+      });
+});
 });
 
 module.exports = router;
