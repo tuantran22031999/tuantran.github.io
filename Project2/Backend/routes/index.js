@@ -153,6 +153,8 @@ MongoClient.connect(url, function(err, client) {
 });
 });
 
+
+
 router.post('/add', function(req, res, next) {
   var user = {
     maid:req.body.maid,
@@ -167,6 +169,7 @@ router.post('/add', function(req, res, next) {
     facebook:req.body.facebook,
     instagram:req.body.instagram,
     twitter:req.body.twitter,
+    key:req.body.key
   }
 
   if(user.sex === "0"){
@@ -262,6 +265,32 @@ MongoClient.connect(url, function(err, client) {
 });
 });
 
+router.post('/reset', function(req, res, next) {
+
+  var reset = req.body.reset; 
+  const updateDocument = function(db, callback) {
+    // Get the documents collection
+    const collection = db.collection('user1');
+    // Update document where a is 2, set b equal to 1
+    collection.updateOne({ _id : change(reset.maid) }
+      , { $set: { password:reset.new} }, function(err, result) {
+      assert.equal(err, null);
+      assert.equal(1, result.result.n);
+      console.log("Updated the document with the field a equal to 2");
+      callback(result);
+    });
+  }
+  // Use connect method to connect to the server
+MongoClient.connect(url, function(err, client) {
+  assert.equal(null, err);
+  console.log("Connected successfully to server");
+  const db = client.db(dbName);
+    updateDocument(db, function() {
+      client.close();
+    });
+});
+});
+
 router.post('/update_story', function(req, res, next) {
 
   var data = req.body.fix; 
@@ -288,6 +317,7 @@ MongoClient.connect(url, function(err, client) {
 });
 });
 
+
 router.post('/up', function(req, res, next) {
 
   var profile = {
@@ -303,6 +333,7 @@ router.post('/up', function(req, res, next) {
     facebook:req.body.facebook,
     instagram:req.body.instagram,
     twitter:req.body.twitter,
+    key:req.body.key
   }
 
   if(profile.sex === "0"){
@@ -330,7 +361,7 @@ router.post('/up', function(req, res, next) {
     const collection = db.collection('profile1');
     // Update document where a is 2, set b equal to 1
     collection.updateOne({ maid : profile.maid }
-      , { $set: {name:profile.name,sex:profile.sex,birthday:profile.birthday,age:profile.age,hometown:profile.hometown,favorite:profile.favorite,maxim:profile.maxim,picture:profile.picture,facebook:profile.facebook,instagram:profile.instagram,twitter:profile.twitter} }, function(err, result) {
+      , { $set: {name:profile.name,sex:profile.sex,birthday:profile.birthday,age:profile.age,hometown:profile.hometown,favorite:profile.favorite,maxim:profile.maxim,picture:profile.picture,facebook:profile.facebook,instagram:profile.instagram,twitter:profile.twitter,key:profile.key} }, function(err, result) {
       assert.equal(err, null);
       assert.equal(1, result.result.n);
       console.log("Updated the document with the field a equal to 2");

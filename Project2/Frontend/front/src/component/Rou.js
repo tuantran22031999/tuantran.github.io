@@ -15,6 +15,7 @@ import Friend from './Friend';
 import Update from './Update';
 import Story from './Story';
 import UpdateStory from './UpdateStory';
+import Reset from './Reset';
 class Rou extends Component {
     render() {
         return (
@@ -33,6 +34,7 @@ class Rou extends Component {
             <Route path="/update" exact component={Update}></Route>
             <Route path="/story.:id" exact component={Story}></Route>
             <Route path="/update_story" exact component={UpdateStory}></Route>
+            <Route path="/reset" exact component={Reset}></Route>
             </div>
         )
     }

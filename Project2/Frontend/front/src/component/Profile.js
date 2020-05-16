@@ -10,10 +10,15 @@ const user = () =>(
   .then(res => res.data)
 )
 
+const profile = () =>(
+  axios.get('/profile')
+  .then(res => res.data)
+)
+
 const add = (maid,name,sex,birthday,age,hometown,favorite,maxim,picture,facebook,instagram,
-twitter) =>(
+twitter,key) =>(
   axios.post('/add',{maid,name,sex,birthday,age,hometown,favorite,maxim,picture,facebook,instagram,
-    twitter})
+    twitter,key})
   .then(res => res.data)
 )
 
@@ -40,7 +45,9 @@ class Profile extends Component {
         facebook:"",
         instagram:"",
         twitter:"",
+        key:"",
         arr:[],
+        arr1:[],
         butt:false
     };
   }
@@ -54,6 +61,13 @@ class Profile extends Component {
         });
       });
     }
+    if(this.state.arr1 = []){
+      profile().then((res) =>{
+        this.setState({
+          arr1:res
+        });
+      });
+    }
   }
 
   get = (e) =>{
@@ -63,14 +77,25 @@ class Profile extends Component {
   }
 
   set = (val) =>{
-    if(this.state.arr !== []){
+    if(this.state.arr !== [] && this.state.arr1 !== []){
     var data = this.state.arr;
+    var data1 = this.state.arr1;
     var check = false;
+    var test = false;
+    for(var i = 0;i < data1.length;i++){
+      if(data1[i].key === val.key){
+        test = false;
+        break;
+      }
+      else{
+        test = true;
+      }
+    }
     for(var i = 0;i < data.length;i++){
-      if(data[i].user == val.user){
+      if(data[i].user === val.user && test === true){
         val.maid = data[i]._id;
         fix(val.maid).then((res) => res);
-        add(val.maid,val.name,val.sex,val.birthday,val.age,val.hometown,val.favorite,val.maxim,val.picture,val.facebook,val.instagram,val.twitter).then((res) => res);
+        add(val.maid,val.name,val.sex,val.birthday,val.age,val.hometown,val.favorite,val.maxim,val.picture,val.facebook,val.instagram,val.twitter,val.key).then((res) => res);
         this.setState({
           maid:data[i]._id,
           butt:true
@@ -87,7 +112,7 @@ class Profile extends Component {
       }
     }
     if(check === false){
-      alert('user false');
+      alert('user false or key exist');
     }
   }
   }
@@ -150,6 +175,10 @@ class Profile extends Component {
               <div className="form-group">
                 <label htmlFor="picture">Your picture profile</label>
                 <input onKeyPress = {(e) => this/this.keycode(e)} onChange = {(e) => this.get(e)} id="picture" className="form-control" type="text" name="picture" style={{display: 'block'}} />
+              </div>
+              <div className="form-group">
+                <label htmlFor="key">Key (use create new password when you forgot password)</label>
+                <input onKeyPress = {(e) => this/this.keycode(e)} onChange = {(e) => this.get(e)} id="key" className="form-control" type="password" name="key" style={{display: 'block'}} />
               </div>
               <div className="form-group">
                 <label htmlFor="facebook">Your facebook</label>

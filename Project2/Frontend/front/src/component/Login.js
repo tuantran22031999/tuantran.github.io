@@ -112,11 +112,12 @@ class Login extends Component {
                   <label htmlFor="user">User</label>
                   <input onKeyPress = {(e) => this/this.keycode(e)} onChange = {(e) => this.get(e)} id="user" className="form-control" type="text" name="user" />
                 </div>
-                <div className="form-group">
+                <div className="form-group mb-1">
                   <label htmlFor="password">Password</label>
                   <input onKeyPress = {(e) => this/this.keycode(e)} onChange = {(e) => this.get(e)} id="password" className="form-control" type="password" name="password" />
                 </div>
-                <button onKeyPress = {(e) => this/this.keycode(e)} onClick = {(val) => this.checkLog(this.state)} type="button" className="btn btn-block btn-danger mt-4">Log in</button>
+                <a href="/reset">Forgot password</a>
+                <button onKeyPress = {(e) => this/this.keycode(e)} onClick = {(val) => this.checkLog(this.state)} type="button" className="btn btn-block btn-danger mt-3">Log in</button>
               </form>
               <div className="text-center mt-3"><a href="/">Back home</a></div>
             </div>
