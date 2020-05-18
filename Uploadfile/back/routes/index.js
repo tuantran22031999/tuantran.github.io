@@ -4,6 +4,13 @@ var multer  = require('multer');
 var cors = require('cors');
 var app = express();
 app.use(cors());
+var download = require('download-file');
+var url = "https://ejoy-english.com/blog/wp-content/uploads/2018/05/tie%CC%82%CC%81ng-anh-u%CC%81c-.jpg"
+
+var options = {
+  directory: "./public/download",
+  filename: "img.jpg"
+}
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -22,7 +29,7 @@ const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
 
 // Connection URL
-const url = 'mongodb://localhost:27017';
+var url = 'mongodb://localhost:27017';
 
 // Database Name
 const dbName = 'uploadfile';
@@ -52,7 +59,18 @@ router.post('/upload', function(req, res, next) {
         return res.status(500).json(err)
     }
 return res.status(200).send(req.file)
-})
+}) 
+});
+
+router.get('/download', function(req, res, next) {
+  res.render('download',{title:'express'})
+ });
+
+ router.post('/download', function(req, res, next) {
+  download(url, options, function(err){
+    if (err) throw err
+    console.log("meow")
+}) 
 });
 
 
