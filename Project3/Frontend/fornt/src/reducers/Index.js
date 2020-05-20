@@ -1,9 +1,8 @@
 import { combineReducers } from 'redux';
-import abc from './ABC';
+import game1 from './Game1';
 
 const Reducer = combineReducers({
-
-    abc
+    game1
 });
 
 export default Reducer;

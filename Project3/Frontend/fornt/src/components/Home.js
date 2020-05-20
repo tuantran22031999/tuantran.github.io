@@ -43,7 +43,7 @@ class Home extends Component {
               <a href="#" className="btn btn-primary text-white but" style={{background: 'gray ', border: '0px '}}>Countries</a>
               <a href="#" className="btn btn-primary text-white but" style={{background: '#ff0078 ', border: '0px '}}>Foods</a>
               <a href="#" className="btn btn-primary text-white but" style={{background: '#8300ff ', border: '0px '}}>Healths</a>
-              <a href="#" className="btn btn-primary text-white but1" style={{background: '#0c7f89', border: '0px '}}>Games</a>
+              <Link to="/game" className="btn btn-primary text-white but1" style={{background: '#0c7f89', border: '0px '}}>Games</Link>
             </div>
           </div>
         </div>

@@ -1,1 +1,1 @@
-export const GET_ABC = 'GET_ABC';
+export const GAME1 = 'GAME1';

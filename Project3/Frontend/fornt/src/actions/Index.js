@@ -1,8 +1,8 @@
 import * as type from '../contact/Type';
 
-export const get_abc = (val) =>{
+export const game1 = (val) =>{
     return{
-        type:type.GET_ABC,
+        type:type.GAME1,
         val
     }
 }
