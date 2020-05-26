@@ -56,7 +56,7 @@ class ABC extends Component {
 
           <div className="col-md-2 col-sm-4 col-xs-6 text-center mt-2" key={key}>
           <div onClick = {(val) => this.speak(value.value)} className="speak">
-            <img src = {value.picture} width="140" height="180"/>
+            <img src = {value.picture} alt="anh" width="140" height="180"/>
             <a className="ml-4"><img src="https://cdn2.iconfinder.com/data/icons/perfect-pixel-game-ui-set/256/sound_on-512.png" alt="anh" width={30} height={30} /></a>
             <div className="translate">
            <div className="text"><h5>{ value.translate }</h5></div>

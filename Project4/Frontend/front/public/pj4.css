@@ -1,0 +1,16 @@
+
+.rep{
+    cursor: pointer;
+}
+
+.repl{
+   height: 0px;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.show{
+    height: 100%;
+    opacity: 1;
+    visibility: visible;
+}

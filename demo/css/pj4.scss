@@ -1,0 +1,273 @@
+*{padding: 0;margin: 0;}
+
+$menu:#efefef;
+$green:#1fa850;
+$blue:#003471;
+$red:#cd282f;
+$violet:#32245f;
+
+@mixin choose(){
+    padding: 3px 10px;
+    border-radius: 50%;
+    border: 2px solid;
+    font-weight: 600;
+    margin: 0px 5px;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+
+body{
+    font-family: 'Roboto', sans-serif;
+}
+
+body img{
+
+    max-width: 100%;
+    height: auto;
+}
+
+body video{
+
+    max-width: 100%;
+    height: auto;
+}
+
+.navbar{
+
+    background: $menu;
+}
+
+.row.nav {
+    width: 100%;
+}
+
+li.nav-item {
+    padding: 11px 10px;
+}
+
+li.nav-item:hover{
+    background: $green;
+}
+
+li.nav-item a {
+    font-size: 16px;
+    font-weight: 600;
+    color: #000;
+    transition: 0.5s;
+}
+
+li.nav-item a:hover{
+
+    color: #fff;
+    transition: 0.5s;
+}
+
+.active{
+    background:$green;
+}
+
+li.nav-item.active a{
+    color: #fff;
+}
+
+.order_now {
+    width: 13%;
+    position: fixed;
+    top: 85%;
+    left: 80%;
+    z-index: 10;
+    animation: big 1.5s linear infinite;
+}
+
+@keyframes big{
+    0%{
+        transform: scale(1);
+    }
+    50%{
+        transform: scale(1.3);
+    }
+    100%{
+        transform: scale(1);
+    }
+}
+
+.slide {
+    background: url(../images/b1.jpg);
+}
+
+.row.order{
+    background: $blue;
+}
+
+.row.order1{
+    background: $menu;
+}
+
+a.goods{
+
+    background: $green !important;
+    border: 0px;
+    border-radius: 0px;
+    color: #fff !important;
+    font-size: 20px;
+}
+
+a.goods:hover{
+    background: #198640 !important;
+}
+
+.title{
+    color: $red;
+}
+
+.row.img {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.arrow {
+    position: absolute;
+    top: -50px;
+    left: -155px;
+}
+
+.row.skill {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.top {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.table{
+    border: 2px solid $green;
+}
+
+ul.check {
+    list-style: none;
+}
+
+ul.check li::before{
+    content: "\f00c";
+    font: normal normal normal 14px/1 FontAwesome;
+    margin-left: 3px;
+}
+
+a.go {
+    background: $green !important;
+    display: block;
+    padding: 15px;
+    font-size: 25px;
+    border: 0px;
+    box-shadow: 0px 5px 10px #0000007a;  
+}
+
+a.go:hover{
+    box-shadow: 0px 0px 0px white;
+    background: #198640 !important;
+}
+
+.row.footer {
+    display: flex;
+    justify-content: space-between;
+}
+
+footer{
+    background: $menu;
+}
+
+footer a{
+    padding: 0px 5px;
+    color: #000;
+    text-decoration: none;
+}
+
+footer a:hover{
+    text-decoration: none;
+    color: #000;
+}
+
+.scroll_top {
+    position: fixed;
+    font-size: 25px;
+    padding: 2px 10px;
+    background:$red;
+    color: #fff;
+    border-radius: 5px;
+    left: 96%;
+    top: 85%;
+    opacity: 0;
+    visibility: hidden;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.scroll_top.show{
+    opacity: 1;
+    visibility: visible;
+    transition: 0.5s;
+}
+
+.row.story{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.row.story h6 {
+    font-weight: 700;
+    width: 90%;
+}
+
+.row.story a{
+    text-decoration: none;
+    color: #000;
+}
+
+.row.story p {
+    font-size: 10px;
+}
+
+.gray {
+    width: 10%;
+    height: 2px;
+    background: #c5bebe;
+}
+
+.choose{
+    display: flex;
+}
+
+ul.count{
+    display: flex;
+    list-style: none;
+    height: 34px;
+}
+
+ul.count li{
+    @include choose();
+}
+
+ul.count li:hover{
+
+    border: 2px solid $violet;
+    background: $violet;
+    color: #fff;
+    transition: 0.5s;
+}
+
+.story h4 {
+    font-weight: 600;
+}
+
+.share h3{
+    font-weight: 700;
+}
+
+.share p {
+    text-align: initial;
+    width: 70% !important;
+    margin: auto;
+}

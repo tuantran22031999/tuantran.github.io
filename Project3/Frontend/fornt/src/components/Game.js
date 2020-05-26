@@ -42,8 +42,8 @@ class Game extends Component {
     }
 
     arr = new Array(14)
-    min = 0;
-    s = 15;
+    min = 15;
+    s = 0;
     time = () => {
             this.s--;
             if(this.min === 0 && this.s === -1){

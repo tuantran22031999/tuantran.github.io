@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {
   BrowserRouter as Router,
   Link,
-  NavLink
 } from "react-router-dom";
 class Home extends Component {
 

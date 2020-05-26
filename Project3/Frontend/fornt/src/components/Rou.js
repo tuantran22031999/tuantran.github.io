@@ -9,7 +9,7 @@ import ABC from './ABC';
 import Animal from './Animal';
 import Game from './Game';
 import Result from './Result';
-import { connect } from 'react-redux';
+
 class Rou extends Component {
     render() {
         return (
