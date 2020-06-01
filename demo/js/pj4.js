@@ -1,3 +1,5 @@
+
+
 $(document).ready(function () {
     var up = $('.body').offset().top;
     $(window).scroll(function(){
@@ -9,4 +11,5 @@ $(document).ready(function () {
             $('.scroll_top').removeClass('show');
         }
     });
+
 });

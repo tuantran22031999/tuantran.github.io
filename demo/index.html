@@ -19,7 +19,6 @@
 
 
 
-
       <!-- nav -->
       <header>
       <nav class="navbar navbar-expand-lg py-0">
@@ -61,7 +60,7 @@
       </div>
 
       <!-- scroll_top -->
-      <div class="scroll_top">
+      <div onclick="Top()" class="scroll_top">
         <i class="fa fa-angle-up" aria-hidden="true"></i>
       </div>
 
@@ -314,6 +313,19 @@
            </div>
        </div>
      </footer>
+
+     <script>
+      var time;
+  function Top(){
+    var html = document.getElementsByTagName('html');
+    if(html[0].scrollTop != 0){
+      window.scrollBy(0,-50);
+      time = setTimeout('Top()',1);}
+      else{
+        clearTimeout(time);
+      }
+  }
+  </script>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
