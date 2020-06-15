@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import ReactPlayer from 'react-player';
 import axios from 'axios';
+import emoji from './emoji.json';
+
 import {
   BrowserRouter as Router,
-  Link
+  Redirect,Link
 } from "react-router-dom";
 
 const music = () =>(
@@ -46,6 +48,11 @@ const reply = (reply) =>(
   .then(res => res.data)
 )
 
+const color = () =>(
+  axios.get('/color')
+  .then(res => res.data)
+)
+
  
 class Video extends Component {
 
@@ -57,7 +64,7 @@ class Video extends Component {
       dislike:true,
       cmt:null,
       reply:null,
-      rep:null,
+      rep:'',
       name:'',
       name1:'',
       comment:'',
@@ -67,39 +74,76 @@ class Video extends Component {
       id_theme:this.props.match.params.id,
       id_in:null,
       num:0,
-      num1:null
+      num1:null,
+      color:null,
+      emo:null,
+      get_emo:'',
+      get_emo1:''
     };
   }
 
+  //WARNING! To be deprecated in React v17. Use componentDidMount instead.
   componentWillMount() {
     if(this.state.data === null){
       music().then((res) => {
         this.setState({
-          data:res,
+          data : res,
         });
       })
     }
     if(this.state.cmt === null){
       find().then((res) => {
         this.setState({
-          cmt:res,
+          cmt : res,
         });
       })
     }
     if(this.state.reply === null){
       find1().then((res) => {
         this.setState({
-          reply:res,
+          reply : res,
         });
       })
     }
+    
+    if(this.state.color === null){
+      color().then((res) => {
+          this.setState({
+              color : res
+          });
+      })
   }
+  if(this.state.emo === null){
+        this.setState({
+            emo : emoji
+        });
+}
+  }
+
+  change = () =>{
+    if(this.state.color !== null){
+        if(this.state.color[0].col === 'white'){
+            var body = document.getElementsByTagName('body');
+            body[0].classList.add('white');
+            body[0].classList.remove('black');
+            console.log('white');
+        }
+        else if(this.state.color[0].col === 'black'){
+            var body = document.getElementsByTagName('body');
+            body[0].classList.add('black');
+            body[0].classList.remove('white');
+            console.log('black');
+        }
+    }
+}
+
+loop = true;
+
 
   set = () => {
     if(this.state.data !== null){
       return this.state.data.map((value,key) =>{
         if(value._id === this.props.match.params.id && value.theme === this.props.match.params.theme){
-
           return(
             <div>
             <div style={{ height: '464px'}} key={key}>
@@ -109,6 +153,7 @@ class Video extends Component {
              autoPlay
              width='100%'
              height='464px'
+             loop={this.loop}
             />
               </div>
               <div className="text">
@@ -143,8 +188,13 @@ class Video extends Component {
       [e.target.name] : e.target.value,
       date : date,
       month : month,
-      year : year
+      year : year,
     });
+    if(e.target.name === 'comment'){
+      this.setState({
+        get_emo:e.target.value
+      })
+    }
   }
 
   reply = (e) => {
@@ -158,6 +208,11 @@ class Video extends Component {
       month : month,
       year : year
     });
+    if(e.target.name === 'rep'){
+      this.setState({
+        get_emo1:e.target.value
+      })
+    }
   }
 
   up_cmt = (event,val) => {
@@ -168,6 +223,7 @@ class Video extends Component {
     }
     else{
       alert('Comment success');
+      val.comment = this.state.get_emo;
     comment(val);}
   }
 
@@ -179,10 +235,12 @@ class Video extends Component {
     }
     else{
       alert('Comment success');
+      val.rep = this.state.get_emo1;
     reply(val);}
   }
 
   up = (val) =>{
+    console.log(val);
     up_seen(val);
   }
 
@@ -210,22 +268,22 @@ class Video extends Component {
     }
 }
 
-
   set1 = () =>{
     var count = 0;
     if(this.state.data !== null){
       return this.state.data.map((value,key) => {
-        count++;
-        if(count < 10){
+        var i = Math.floor(Math.random()*(this.state.data.length/2)) + Math.floor(key/2);
+        if(count < 12 && this.state.data[i]._id !== this.props.match.params.id){
+          count++;
           return(
             <div className="propose mb-2" key={key}>
             <div className="top">
-              <img src={value.img} alt="anh" width={280} height={155} />
-              <img className="gif" src={value.gif} alt="anh" width={280} height={155} />
+              <img src={this.state.data[i].img} alt="anh" width={280} height={155} />
+              <img className="gif" src={this.state.data[i].gif} alt="anh" width={280} height={155} />
             </div>
             <div className="bootom">
-            <Link onClick={(val) => this.up(value)} to={`/video/${value.theme}.${value._id}`}><h6 className="my-0 mt-2">{value.title}</h6></Link>
-              <p className="my-0">{`${value.seen} lượt xem`}</p>
+            <a onClick={(val) => this.up(this.state.data[i])} href={`/video/${this.state.data[i].theme}.${this.state.data[i]._id}`}><h6 className="my-0 mt-2">{this.state.data[i].title}</h6></a>
+              <p className="my-0">{`${this.state.data[i].seen} lượt xem`}</p>
             </div>
           </div>
           )
@@ -233,6 +291,7 @@ class Video extends Component {
       });
     }
   }
+
 
   check = false;
 
@@ -275,9 +334,13 @@ class Video extends Component {
               </div> 
               <div className="form-group">
                 <label htmlFor="rep">Reply:</label>
-                <input onChange = {(e) => this.reply(e)} id="rep" className="form-control" type="text" name="rep" />
+                <input value={this.state.get_emo1} onChange = {(e) => this.reply(e)} id="rep" className="form-control" type="text" name="rep" />
               </div>
-              <button onClick = {(event,val) => this.up_reply(event,this.state)} type="button" className="btn btn-block btn-danger">ADD</button>    
+              {this.button_emo(key)}
+              <div className="emo">
+                      {this.emo1()}
+              </div>
+              <button onClick = {(event,val) => this.up_reply(event,this.state)} type="submit" className="btn btn-block btn-danger">ADD</button>    
             </form>
             <hr></hr>
           </div>
@@ -291,10 +354,10 @@ class Video extends Component {
       return this.state.reply.map((value,key) => {
         if(value.id_in === id){
           return(
-            <div className="outside" style={{marginLeft: value.num*50}} key={key}>
+            <div className="outside mt-2" style={{marginLeft: value.num*50}} key={key}>
               <img src="https://succonst.com/img/login.png" alt="anh" width="60px" height="60px" style={{height: '60px'}} />
               <div className="out_text ml-2">
-          <h6>{value.name}</h6>
+          <h6 className="my-0">{value.name}</h6>
           <p className="my-0">{value.reply}</p>
                 <p className="my-0">{`${value.date}/${value.month}/${value.year}`}</p>
               </div>
@@ -305,12 +368,43 @@ class Video extends Component {
     }
   }
 
+  emo = () =>{
+    if(this.state.emo !== null){
+      return this.state.emo.map((value,key) => {
+        return(       
+        <div onClick = {(val) => this.set_emo(value.emoji)} className="child" key={key}>{value.emoji}</div>
+        )
+      });
+    }
+  }
+
+  emo1 = () =>{
+    if(this.state.emo !== null){
+      return this.state.emo.map((value,key) => {
+        return(       
+        <div onClick = {(val) => this.set_emo1(value.emoji)} className="child" key={key}>{value.emoji}</div>
+        )
+      });
+    }
+  }
+
+  set_emo = (val) =>{
+    this.setState({
+      get_emo:this.state.get_emo + val
+    })
+  }
+
+  set_emo1 = (val) =>{
+    this.setState({
+      get_emo1:this.state.get_emo1 + val
+    })
+  }
+
   show = (key,id,num) =>{
     this.setState({
       num1:num + 1,
       id_in:id
     })
-    console.log(this.state);
     var reply = document.getElementsByClassName('reply');
     reply[key].classList.toggle('show');
   }
@@ -319,15 +413,31 @@ class Video extends Component {
     return (<a onClick = {(key,id,num) => this.show(key1,id1,num1)} style={{cursor: 'pointer'}}><h6>REPLY</h6></a>)
   }
 
+  button_emo = (key2) =>{
+    return ( <button onClick={(key) => this.show_emo1(key2)} type="button" class="btn btn-block btn-warning text-white">EMOJI</button>)
+  }
+
+  show_emo = () =>{
+    var emo = document.getElementsByClassName('emo');
+    emo[0].classList.toggle('show_emo');
+  }
+
+  show_emo1 = (key) =>{
+    var emo = document.getElementsByClassName('emo');
+    emo[key+1].classList.toggle('show_emo');
+  }
+
     render() {
-      console.log(this.state);
+      {
+        this.change();
+    }
         return (
             <div>
                  {/* video */}
-      <div className="video" style={{marginTop:'100px'}}>
+      <div className="video" style={{marginTop:'80px'}}>
         <div className="container">
           <div className="row">
-            <div className="col-md-9 col-xs-12">
+            <div className="col-lg-9 col-xs-12">
               {this.set()}
                 <div className="comment">
                   <h3>COMMENT:</h3>
@@ -339,16 +449,20 @@ class Video extends Component {
                       </div> 
                       <div className="form-group">
                         <label htmlFor="comment">Comment:</label>
-                        <input onChange = {(e) => this.cmt(e)} id="comment" className="form-control" type="comment" name="comment" />
+                        <input value={this.state.get_emo} onChange = {(e) => this.cmt(e)} id="comment" className="form-control" type="comment" name="comment" />
+                      </div>
+                      <button onClick={this.show_emo} type="button" class="btn btn-block btn-warning text-white">EMOJI</button>
+                      <div className="emo">
+                      {this.emo()}
                       </div>
                       <button onClick = {(event,val) => this.up_cmt(event,this.state)} type="submit" className="btn btn-block btn-danger">ADD</button>    
                     </form>
                     {this.set_comment()}
                   </div>
-                  <button onClick = {this.open} type="button" className="btn btn-block btn-secondary mt-2 other">OTHER COMMENT</button>
+                  <button onClick = {this.open} type="submit" className="btn btn-block btn-secondary mt-2 other">OTHER COMMENT</button>
                 </div>
               </div>
-            <div className="col-md-3">
+            <div className="col-lg-3 col-xs-12">
               {this.set1()}
             </div>
             </div>

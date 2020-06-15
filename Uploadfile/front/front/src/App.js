@@ -58,7 +58,7 @@ onClickHandler = () => {
  
   const data = new FormData();
   data.append('file', this.state.selectedFile);
-  console.log(this.state.selectedFile);
+  console.log(this.state.selectedFile);11
   add(this.state.selectedFile.name)
   axios.post("/upload",data,{ 
      // receive two    parameter endpoint url ,form data

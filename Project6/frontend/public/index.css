@@ -10,8 +10,17 @@ body.black{
     color: #fff !important;
 }
 
+body.black .navbar-toggler-icon{
+
+    color: #f8f9fa !important;
+}
+
 body.black .video hr{
     background: #ffffff29;
+}
+
+body.black .emo{
+    border: 1px solid #ffffff29;
 }
 
 body.black a{
@@ -210,6 +219,18 @@ footer{
     display: flex;
     justify-content: space-evenly;
 }
+.row.movie {
+    display: flex;
+    justify-content: space-evenly;
+}
+.row.sport {
+    display: flex;
+    justify-content: space-evenly;
+}
+.row.news {
+    display: flex;
+    justify-content: space-evenly;
+}
 
 .reply{
     height: 0px;
@@ -221,4 +242,37 @@ footer{
     height: 100%;
     opacity: 1;
     visibility: visible;
+}
+
+.emo {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    height: 0px;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.child {
+    width: 10%;
+    height: 50px;
+    font-size: 210%;
+    text-align: center;
+    cursor: pointer;
+}
+
+.show_emo{
+    height: 100%;
+    opacity: 1;
+    visibility: visible;
+    margin: 15px 0px;
+}
+
+.not {
+    width: 100%;
+}
+
+.not img {
+    width: 100%;
 }

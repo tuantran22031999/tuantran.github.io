@@ -52,6 +52,41 @@ class Insert extends Component {
         alert('insert success');
         add(val);
       }
+      else if(val.theme == 1){
+        val.theme = 'movie';
+        alert('insert success');
+        add(val);
+      }
+      else if(val.theme == 2){
+        val.theme = 'sport';
+        alert('insert success');
+        add(val);
+      }
+      else if(val.theme == 3){
+        val.theme = 'news';
+        alert('insert success');
+        add(val);
+      }
+      else if(val.theme == 4){
+        val.theme = 'children';
+        alert('insert success');
+        add(val);
+      }
+      else if(val.theme == 5){
+        val.theme = 'life';
+        alert('insert success');
+        add(val);
+      }
+      else if(val.theme == 6){
+        val.theme = 'food';
+        alert('insert success');
+        add(val);
+      }
+      else if(val.theme == 7){
+        val.theme = 'science & technology';
+        alert('insert success');
+        add(val);
+      }
     }
   }
     render() {

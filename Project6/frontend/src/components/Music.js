@@ -5,6 +5,7 @@ import {
   Link
 } from "react-router-dom";
 
+
 const music = () =>(
   axios.get('/find')
   .then(res => res.data)
@@ -15,12 +16,18 @@ const up_seen = (up) => (
   .then(res => res.data)
 )
 
+const color = () =>(
+  axios.get('/color')
+  .then(res => res.data)
+)
+
 
 class Music extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data:null
+      data:null,
+      color:null
     };
   }
 
@@ -33,14 +40,22 @@ class Music extends Component {
         });
       })
     }
+    if(this.state.color === null){
+      color().then((res) => {
+          this.setState({
+              color:res
+          });
+      })
+  }
   }
 
   set = () =>{
     var count = 0;
     if(this.state.data !== null){
       return this.state.data.map((value,key) =>{
-        count ++;
-        if(count < 9 && value.theme === 'music'){
+        if(value.theme === "music"){
+          count ++;
+          if(count < 9){
         return(
           <div>
           <div className="col-lg-3 col-md-4 col-sm-6 mt-2" key={key}>
@@ -55,17 +70,36 @@ class Music extends Component {
               </div>
             </div>
             </div>
-        )}
+        )}}
       })
     }
   }
+
+  change = () =>{
+    if(this.state.color !== null){
+        if(this.state.color[0].col === 'white'){
+            var body = document.getElementsByTagName('body');
+            body[0].classList.add('white');
+            body[0].classList.remove('black');
+            console.log('white');
+        }
+        else if(this.state.color[0].col === 'black'){
+            var body = document.getElementsByTagName('body');
+            body[0].classList.add('black');
+            body[0].classList.remove('white');
+            console.log('black');
+        }
+    }
+}
 
   up = (val) =>{
     up_seen(val);
   }
    
     render() {
-      console.log(this.state);
+      {
+        this.change()
+    }
         return (
             <div>
                       {/* music */}

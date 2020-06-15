@@ -5,7 +5,7 @@ import {
   Link
 } from "react-router-dom";
 
-const music = () =>(
+const data = () =>(
   axios.get('/find')
   .then(res => res.data)
 )
@@ -15,32 +15,64 @@ const up_seen = (up) => (
   .then(res => res.data)
 )
 
+const color = () =>(
+  axios.get('/color')
+  .then(res => res.data)
+)
+
 
 class Search extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data:null
+      data:null,
+      color:null
     };
   }
 
   //WARNING! To be deprecated in React v17. Use componentDidMount instead.
   componentWillMount() {
     if(this.state.data === null){
-      music().then((res) => {
+      data().then((res) => {
         this.setState({
-          data:res
+          data:res,
+          check:false
         });
       })
     }
+    if(this.state.color === null){
+      color().then((res) => {
+          this.setState({
+              color:res
+          });
+      })
+  }
   }
 
+  change = () =>{
+    if(this.state.color !== null){
+        if(this.state.color[0].col === 'white'){
+            var body = document.getElementsByTagName('body');
+            body[0].classList.add('white');
+            body[0].classList.remove('black');
+            console.log('white');
+        }
+        else if(this.state.color[0].col === 'black'){
+            var body = document.getElementsByTagName('body');
+            body[0].classList.add('black');
+            body[0].classList.remove('white');
+            console.log('black');
+        }
+    }
+}
+
+
+  count = 0;
   set = () =>{
-    var count = 0;
     if(this.state.data !== null){
       return this.state.data.map((value,key) =>{
-        count ++;
-        if(count < 9 && value.theme === 'music'){
+        if(value.title.slice(0,6).toLowerCase().indexOf(this.props.match.params.value.slice(0,6).toLowerCase()) !== -1 || value.theme.slice(0,6).toLowerCase().indexOf(this.props.match.params.value.slice(0,6).toLowerCase()) !== -1){
+        this.count ++;
         return(
           <div>
           <div className="col-lg-3 col-md-4 col-sm-6 mt-2" key={key}>
@@ -63,16 +95,26 @@ class Search extends Component {
   up = (val) =>{
     up_seen(val);
   }
+
+
+  result = () =>{
+    return (
+      <h3 className="ml-4">RESULTS:{ this.count/2 }</h3>
+    )
+  }
+
    
     render() {
-      console.log(this.state);
+      {
+        this.change()
+      }
         return (
             <div>
                       {/* music */}
-      <div className="music">
+      <div className="search" style={{ marginTop : '80px' }}>
         <div className="container-fluid">
-          <h3 className="ml-4">Music</h3>
-          <div className="row music">
+          {this.result()}
+          <div className="row">
             {this.set()}
           </div>
         </div>

@@ -1,0 +1,51 @@
+@media screen and (max-width:984px){
+
+    .col-lg-3.col-xs-12{
+        margin-top: 25px;
+    }
+
+    ul.navbar-nav{
+        margin-left: 0px !important;
+    }
+
+    .propose{
+        margin-bottom: 25px !important;
+
+    }
+
+    .propose .top {
+       width: 100% !important;
+       height: 254px !important;
+    }
+    .propose .top img {
+        width: 100% !important;
+        height: 254px !important;
+     }
+    .propose .bootom{
+        width: 100% !important;
+    }
+}
+
+@media screen and (max-width:414px){
+
+    .child {
+        width: 14%;
+        height: 50px;
+        font-size: 210%;
+        text-align: center;
+        cursor: pointer;
+    }
+    
+}
+
+@media screen and (max-width:320px){
+
+    .child {
+        width: 17%;
+        height: 50px;
+        font-size: 210%;
+        text-align: center;
+        cursor: pointer;
+    }
+    
+}

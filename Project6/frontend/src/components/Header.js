@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
 import {
   BrowserRouter as Router,
-  Link,
-  Redirect
+  Link
 } from "react-router-dom";
+
 
 class Header extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      search:'',
-      check:false
+      search:''
     };
   }
    
@@ -20,21 +19,20 @@ class Header extends Component {
     });
   }
 
-  set = () =>{
-    this.setState({
-      check:true
-    });
+  check = (event,val) => {
+    if(val === ''){
+      event.preventDefault();
+      alert('not empty');
+      return false;
+    }
   }
+
     render() {
-      console.log(this.state.search);
-      if(this.state.check === true){
-        return <Redirect to={`/search.${this.state.search}`}></Redirect>
-      }
         return (
             <div>
                       <header>
         <nav className="navbar navbar-expand-lg navbar-light bg-light">         
-          <Link className="navbar-brand" to="/"><img src="https://lh3.googleusercontent.com/proxy/idsxMW4jPFyjXJCFlVopbvrcC20MDI-u2WiE5_uWlTJXeQMKwI2Rkpn5XYUK6uPpcBOBB_80v7HC-trjJeaEa3ERQmFhYbM" alt="anh" height="30px" width="30px" /> my videos</Link>
+          <Link className="navbar-brand" to="/"><img src="https://cdn3.iconfinder.com/data/icons/social-messaging-ui-color-line/254000/49-512.png" alt="anh" height="30px" width="30px" /> my videos</Link>
           <button className="navbar-toggler" data-target="#my-nav" data-toggle="collapse" aria-controls="my-nav" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon" />
           </button>
@@ -44,13 +42,13 @@ class Header extends Component {
                 <Link className="nav-link" to="/music">Music</Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">Movie</a>
+              <Link className="nav-link" to="/movie">Movie</Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">sport</a>
+              <Link className="nav-link" to="/sport">Sport</Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">News</a>
+              <Link className="nav-link" to="/news">News</Link>
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="#">Children</a>
@@ -69,7 +67,8 @@ class Header extends Component {
                   <div className="input-group">
                     <input onChange = {(e) => this.get(e)} type="text" className="form-control" placeholder="Search..." name="search" />
                     <div className="input-group-prepend">
-                      <span onClick = {() => this.set()} className="input-group-text" id="search" style={{cursor: 'pointer'}}>Search</span>
+                      <a onClick = {(event,val) => this.check(event,
+                        this.state.search)} className="btn btn-secondary" href={`/search.${this.state.search}`}>Search</a>
                     </div>
                   </div>
                 </form>

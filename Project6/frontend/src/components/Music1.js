@@ -15,13 +15,18 @@ const up_seen = (up) => (
   .then(res => res.data)
 )
 
+const color = () =>(
+  axios.get('/color')
+  .then(res => res.data)
+)
 
 
 class Music1 extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data:null
+      data:null,
+      color:null
     };
   }
 
@@ -34,7 +39,31 @@ class Music1 extends Component {
         });
       })
     }
+    if(this.state.color === null){
+      color().then((res) => {
+          this.setState({
+              color:res
+          });
+      })
   }
+  }
+
+  change = () =>{
+    if(this.state.color !== null){
+        if(this.state.color[0].col === 'white'){
+            var body = document.getElementsByTagName('body');
+            body[0].classList.add('white');
+            body[0].classList.remove('black');
+            console.log('white');
+        }
+        else if(this.state.color[0].col === 'black'){
+            var body = document.getElementsByTagName('body');
+            body[0].classList.add('black');
+            body[0].classList.remove('white');
+            console.log('black');
+        }
+    }
+}
 
   set = () =>{
     if(this.state.data !== null){
@@ -64,7 +93,9 @@ class Music1 extends Component {
   }
    
     render() {
-      console.log(this.state);
+      {
+        this.change()
+    }
         return (
             <div>
                       {/* music */}
